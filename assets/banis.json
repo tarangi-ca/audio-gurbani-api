@@ -1,0 +1,53 @@
+{
+    "Banis": [
+        {
+            "Id": "japji-sahib", 
+            "Title": {
+                "English": "Japji Sahib",
+                "Gurmukhi": "ਜਪੁਜੀ ਸਾਹਿਬ"
+            }
+        },
+        {
+            "Id": "jaap-sahib",
+            "Title": {
+                "English": "Jaap Sahib", 
+                "Gurmukhi": "ਜਾਪੁ ਸਾਹਿਬ"
+            }
+        },
+        {
+            "Id": "tav-prasad-savaiye",
+            "Title": {
+                "English": "Tav-Prasad Savaiye",
+                "Gurmukhi": "ਤ੍ਵ ਪ੍ਰਸਾਦਿ ਸਵੱਯੇ"
+            }
+        },
+        {
+            "Id": "chaupai-sahib",
+            "Title": {
+                "English": "Chaupai Sahib",
+                "Gurmukhi": "ਚੌਪਈ ਸਾਹਿਬ"
+            }
+        },
+        {
+            "Id": "anand-sahib",
+            "Title": {
+                "English": "Anand Sahib",
+                "Gurmukhi": "ਅਨੰਦ ਸਾਹਿਬ"
+            }
+        },
+        {
+            "Id": "rehras-sahib",
+            "Title": {
+                "English": "Rehras Sahib",
+                "Gurmukhi": "ਰਹਰਾਸਿ ਸਾਹਿਬ"
+            }
+        },
+        {
+            "Id": "ardas",
+            "Title": {
+                "English": "Ardas",
+                "Gurmukhi": "ਅਰਦਾਸ"
+            }
+        }
+    ]
+ }
