@@ -1,0 +1,33 @@
+{
+  "name": "Audio Gurbani (API)",
+  "image": "mcr.microsoft.com/devcontainers/python",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers-contrib/features/poetry:2": {},
+    "ghcr.io/nikobockerman/devcontainer-features/poetry-persistent-cache:1": {},
+    "ghcr.io/guiyomh/features/just:0": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "njpwerner.autodocstring",
+        "nefrob.vscode-just-syntax"
+      ],
+      "settings": {
+        "editor": {
+          "formatOnSave": true,
+          "defaultFormatter": "charliermarsh.ruff",
+          "codeActionsOnSave": {
+            "source.organizeImports": true
+          }
+        }
+      }
+    }
+  },
+  "forwardPorts": [8000],
+  "postCreateCommand": "poetry install && poetry shell && pre-commit"
+}
