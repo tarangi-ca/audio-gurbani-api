@@ -5,6 +5,7 @@ alias d := dev
 alias c := clean
 
 dev:
+    docker compose up -d
     fastapi dev app/main.py
 
 clean:

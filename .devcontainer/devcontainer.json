@@ -28,6 +28,11 @@
       }
     }
   },
-  "forwardPorts": [8000],
+  "forwardPorts": [
+    8000,
+    5432,
+    9000,
+    9001
+  ],
   "postCreateCommand": "poetry install && poetry shell && pre-commit"
 }
