@@ -10,20 +10,28 @@ router: APIRouter = APIRouter(prefix="/collections")
 
 
 @router.get("/")
-async def index(repository: Annotated[CollectionRepository, Depends()]) -> list[CollectionRecord]:
+async def index(
+    repository: Annotated[CollectionRepository, Depends()],
+) -> list[CollectionRecord]:
     return await repository.find()
 
 
 @router.get("/{id}")
-async def show(id: UUID4, repository: Annotated[CollectionRepository, Depends()]) -> CollectionRecord | None:
+async def show(
+    id: UUID4, repository: Annotated[CollectionRepository, Depends()]
+) -> CollectionRecord | None:
     return await repository.find_by_id(id)
 
 
 @router.post("/")
-async def create(body: CreateCollectionBody, repository: Annotated[CollectionRepository, Depends()]) -> CollectionRecord:
+async def create(
+    body: CreateCollectionBody, repository: Annotated[CollectionRepository, Depends()]
+) -> CollectionRecord:
     return await repository.create(body.display_name, body.slug, body.artist_id)
 
 
 @router.delete("/{id}")
-async def delete(id: UUID4, repository: Annotated[CollectionRepository, Depends()]) -> bool:
+async def delete(
+    id: UUID4, repository: Annotated[CollectionRepository, Depends()]
+) -> bool:
     return await repository.delete(id)

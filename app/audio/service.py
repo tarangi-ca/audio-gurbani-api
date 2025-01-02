@@ -4,8 +4,11 @@ from settings import settings
 
 class AudioService:
     def __init__(self):
-        self.minio = Minio(settings.MINIO_DOMAIN_NAME,
-                           settings.MINIO_ACCESS_KEY, settings.MINIO_SECRET_KEY)
+        self.minio = Minio(
+            settings.MINIO_DOMAIN_NAME,
+            settings.MINIO_ACCESS_KEY,
+            settings.MINIO_SECRET_KEY,
+        )
 
         if self.minio.bucket_exists(settings.AUDIO_BUCKET_NAME):
             self.minio.make_bucket(settings.AUDIO_BUCKET_NAME)
