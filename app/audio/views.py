@@ -17,13 +17,17 @@ async def index(repository: Annotated[AudioRepository, Depends()]) -> list[Audio
 
 
 @router.get("/{id}")
-async def show(id: UUID4, repository: Annotated[AudioRepository, Depends()]) -> AudioRecord | None:
+async def show(
+    id: UUID4, repository: Annotated[AudioRepository, Depends()]
+) -> AudioRecord | None:
     return await repository.find_by_id(id)
 
 
 @router.post("/")
-async def create(body: CreateAudioRecord, repository: Annotated[AudioRepository, Depends()]) -> AudioRecord:
-    return await repository.create(body.display_name, body.slug, body.artist_id)
+async def create(
+    body: CreateAudioRecord, repository: Annotated[AudioRepository, Depends()]
+) -> AudioRecord:
+    return await repository.create(body.display_name, body.collection_id)
 
 
 @router.delete("/{id}")
@@ -32,10 +36,14 @@ async def delete(id: UUID4, repository: Annotated[AudioRepository, Depends()]) -
 
 
 @router.get("/pre-signed-url")
-async def find(service: Annotated[AudioService, Depends()]) -> AudioPresignedUrlResponse:
+async def find(
+    service: Annotated[AudioService, Depends()],
+) -> AudioPresignedUrlResponse:
     return service.insert(uuid4())
 
 
 @router.post("/pre-signed-url")
-async def upload(service: Annotated[AudioService, Depends()]) -> AudioPresignedUrlResponse:
+async def upload(
+    service: Annotated[AudioService, Depends()],
+) -> AudioPresignedUrlResponse:
     return service.insert(uuid4())
