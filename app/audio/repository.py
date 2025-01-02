@@ -12,15 +12,15 @@ class AudioRepository:
             return [
                 AudioRecord.from_row(row)
                 for row in await connection.fetch(
-                    """"
-                SELECT
-                    id,
-                    display_name,
-                    collection_id,
-                    created_at,
-                    updated_at
-                FROM audios
-                """
+                    """
+                    SELECT
+                        id,
+                        display_name,
+                        collection_id,
+                        created_at,
+                        updated_at
+                    FROM audios
+                    """
                 )
             ]
 
@@ -53,15 +53,15 @@ class AudioRepository:
                 AudioRecord.from_row(row)
                 for row in await connection.fetchmany(
                     """
-                SELECT
-                    id,
-                    display_name,
-                    collection_id,
-                    created_at,
-                    updated_at
-                FROM audios
-                WHERE collection_id = $1
-                """,
+                    SELECT
+                        id,
+                        display_name,
+                        collection_id,
+                        created_at,
+                        updated_at
+                    FROM audios
+                    WHERE collection_id = $1
+                    """,
                     id,
                 )
             ]
@@ -74,10 +74,10 @@ class AudioRepository:
             return AudioRecord.from_row(
                 await connection.fetchrow(
                     """
-                INSERT INTO audios (id, display_name, collection_id, created_at, updated_at)
-                VALUES ($1, $2, $3, $4, $4)
-                RETURNING *
-                """,
+                    INSERT INTO audios (id, display_name, collection_id, created_at, updated_at)
+                    VALUES ($1, $2, $3, $4, $4)
+                    RETURNING *
+                    """,
                     uuid4(),
                     display_name,
                     collection_id,

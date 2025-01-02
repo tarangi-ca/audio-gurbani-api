@@ -12,16 +12,16 @@ class CollectionRepository:
             return [
                 CollectionRecord.from_row(row)
                 for row in await connection.fetch(
-                    """"
-                SELECT
-                    id,
-                    display_name,
-                    slug,
-                    artist_id,
-                    created_at,
-                    updated_at
-                FROM collections
-                """
+                    """
+                    SELECT
+                        id,
+                        display_name,
+                        slug,
+                        artist_id,
+                        created_at,
+                        updated_at
+                    FROM collections
+                    """
                 )
             ]
 
@@ -55,16 +55,16 @@ class CollectionRepository:
                 CollectionRecord.from_row(row)
                 for row in await connection.fetchmany(
                     """
-                SELECT
-                    id,
-                    display_name,
-                    slug,
-                    artist_id,
-                    created_at,
-                    updated_at
-                FROM collections
-                WHERE artist_id = $1
-                """,
+                    SELECT
+                        id,
+                        display_name,
+                        slug,
+                        artist_id,
+                        created_at,
+                        updated_at
+                    FROM collections
+                    WHERE artist_id = $1
+                    """,
                     id,
                 )
             ]
@@ -79,10 +79,10 @@ class CollectionRepository:
             return CollectionRecord.from_row(
                 await connection.fetchrow(
                     """
-                INSERT INTO collections (id, display_name, slug, artist_id, created_at, updated_at)
-                VALUES ($1, $2, $3, $4, $5, $5)
-                RETURNING *
-                """,
+                    INSERT INTO collections (id, display_name, slug, artist_id, created_at, updated_at)
+                    VALUES ($1, $2, $3, $4, $5, $5)
+                    RETURNING *
+                    """,
                     uuid4(),
                     display_name,
                     slug,

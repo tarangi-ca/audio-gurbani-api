@@ -14,14 +14,14 @@ class ArtistRepository:
                 ArtistRecord.from_row(row)
                 for row in await connection.fetch(
                     """
-                SELECT
-                    id,
-                    display_name,
-                    slug,
-                    created_at,
-                    updated_at
-                FROM artists
-                """
+                    SELECT
+                        id,
+                        display_name,
+                        slug,
+                        created_at,
+                        updated_at
+                    FROM artists
+                    """
                 )
             ]
 
@@ -57,16 +57,16 @@ class ArtistRepository:
                     CollectionRecord.from_row(row)
                     for row in await connection.fetchmany(
                         """
-                    SELECT
-                        id,
-                        display_name,
-                        slug,
-                        artist_id,
-                        created_at,
-                        updated_at
-                    FROM collections
-                    WHERE artist_id = $1
-                    """,
+                        SELECT
+                            id,
+                            display_name,
+                            slug,
+                            artist_id,
+                            created_at,
+                            updated_at
+                        FROM collections
+                        WHERE artist_id = $1
+                        """,
                         id,
                     )
                 ],
@@ -77,10 +77,10 @@ class ArtistRepository:
             return ArtistRecord.from_row(
                 await connection.fetchrow(
                     """
-                INSERT INTO artists (id, display_name, slug, created_at, updated_at)
-                VALUES ($1, $2, $3, $4, $5)
-                RETURNING *
-                """,
+                    INSERT INTO artists (id, display_name, slug, created_at, updated_at)
+                    VALUES ($1, $2, $3, $4, $5)
+                    RETURNING *
+                    """,
                     uuid4(),
                     display_name,
                     slug,
