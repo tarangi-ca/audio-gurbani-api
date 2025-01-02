@@ -14,5 +14,10 @@ class Settings(BaseSettings):
     MINIO_ACCESS_KEY: str = Field()
     MINIO_SECRET_KEY: str = Field()
 
+    JWT_SECRET_KEY: str = Field()
+    JWT_ALGORITHM: str = Field()
+
+    ADMIN_MASTER_TOKEN: str = Field()
+
 
 settings: Settings = Settings()
