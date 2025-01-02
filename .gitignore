@@ -266,4 +266,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# DBMate
+schema.sql
+
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,visualstudiocode,python
