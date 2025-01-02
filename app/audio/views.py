@@ -39,11 +39,19 @@ async def delete(id: UUID4, repository: Annotated[AudioRepository, Depends()]) -
 async def find(
     service: Annotated[AudioService, Depends()],
 ) -> AudioPresignedUrlResponse:
-    return service.insert(uuid4())
+    id: UUID4 = uuid4()
+    return AudioPresignedUrlResponse(
+        id=id,
+        url=service.find(str(id)),
+    )
 
 
 @router.post("/pre-signed-url")
 async def upload(
     service: Annotated[AudioService, Depends()],
 ) -> AudioPresignedUrlResponse:
-    return service.insert(uuid4())
+    id: UUID4 = uuid4()
+    return AudioPresignedUrlResponse(
+        id=id,
+        url=service.insert(str(id)),
+    )
