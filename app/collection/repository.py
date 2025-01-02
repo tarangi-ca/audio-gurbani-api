@@ -11,7 +11,7 @@ class CollectionRepository:
         async with database.connection() as connection:
             return [
                 CollectionRecord.from_row(row)
-                for row in await connection.fetchmany(
+                for row in await connection.fetch(
                     """"
                 SELECT
                     id,
