@@ -1,6 +1,8 @@
 from typing import Annotated
 from uuid import uuid4
 
+from admin.dependencies import get_current_active_admin
+from admin.models import AdminRecord
 from audio.models import AudioRecord
 from audio.repository import AudioRepository
 from audio.schemas import AudioPresignedUrlResponse, CreateAudioRecord
@@ -25,13 +27,19 @@ async def show(
 
 @router.post("/")
 async def create(
-    body: CreateAudioRecord, repository: Annotated[AudioRepository, Depends()]
+    body: CreateAudioRecord,
+    _: Annotated[AdminRecord, Depends(get_current_active_admin)],
+    repository: Annotated[AudioRepository, Depends()],
 ) -> AudioRecord:
     return await repository.create(body.display_name, body.collection_id)
 
 
 @router.delete("/{id}")
-async def delete(id: UUID4, repository: Annotated[AudioRepository, Depends()]) -> bool:
+async def delete(
+    id: UUID4,
+    _: Annotated[AdminRecord, Depends(get_current_active_admin)],
+    repository: Annotated[AudioRepository, Depends()],
+) -> bool:
     return await repository.delete(id)
 
 
@@ -48,6 +56,7 @@ async def find(
 
 @router.post("/pre-signed-url")
 async def upload(
+    _: Annotated[AdminRecord, Depends(get_current_active_admin)],
     service: Annotated[AudioService, Depends()],
 ) -> AudioPresignedUrlResponse:
     id: UUID4 = uuid4()

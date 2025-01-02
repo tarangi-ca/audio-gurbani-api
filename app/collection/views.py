@@ -1,5 +1,7 @@
 from typing import Annotated
 
+from admin.dependencies import get_current_active_admin
+from admin.models import AdminRecord
 from collection.models import CollectionRecord
 from collection.repository import CollectionRepository
 from collection.schemas import CreateCollectionBody
@@ -25,13 +27,17 @@ async def show(
 
 @router.post("/")
 async def create(
-    body: CreateCollectionBody, repository: Annotated[CollectionRepository, Depends()]
+    body: CreateCollectionBody,
+    _: Annotated[AdminRecord, Depends(get_current_active_admin)],
+    repository: Annotated[CollectionRepository, Depends()],
 ) -> CollectionRecord:
     return await repository.create(body.display_name, body.slug, body.artist_id)
 
 
 @router.delete("/{id}")
 async def delete(
-    id: UUID4, repository: Annotated[CollectionRepository, Depends()]
+    id: UUID4,
+    _: Annotated[AdminRecord, Depends(get_current_active_admin)],
+    repository: Annotated[CollectionRepository, Depends()],
 ) -> bool:
     return await repository.delete(id)
