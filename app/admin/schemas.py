@@ -1,9 +1,10 @@
-from pydantic import UUID4, BaseModel
+from pydantic import BaseModel
 
 
 class CreateAdminBody(BaseModel):
     email_address: str
     password: str
+    token: str
 
 
 class Token(BaseModel):
@@ -11,5 +12,5 @@ class Token(BaseModel):
 
 
 class TokenContent(BaseModel):
-    id: UUID4 | None = None
+    id: str | None = None
     email_address: str | None = None

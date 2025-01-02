@@ -21,7 +21,9 @@ class AdminService:
         try:
             return TokenContent.model_construct(
                 jwt.decode(
-                    token, settings.JWT_SECRET_KEY, algorithms=[settings.JWT_ALGORITHM]
+                    token,
+                    key=settings.JWT_SECRET_KEY,
+                    algorithms=[settings.JWT_ALGORITHM],
                 )
             )
         except jwt.PyJWTError:

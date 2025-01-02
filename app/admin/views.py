@@ -3,7 +3,7 @@ from typing import Annotated
 from admin.dependencies import get_current_active_admin
 from admin.models import AdminRecord
 from admin.repository import AdminRepository
-from admin.schemas import CreateAdminBody, Token
+from admin.schemas import CreateAdminBody, Token, TokenContent
 from admin.service import AdminService
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
@@ -30,11 +30,11 @@ async def show(
     return await repository.find_by_id(id)
 
 
-@router.post("/{token}")
+@router.post("/")
 async def create(
     body: CreateAdminBody, repository: Annotated[AdminRepository, Depends()], token: str
 ) -> AdminRecord:
-    if token == settings.ADMIN_MASTER_TOKEN:
+    if body.token == settings.ADMIN_MASTER_TOKEN:
         return await repository.create(body.email_address, body.password)
     else:
         raise HTTPException(
@@ -45,13 +45,17 @@ async def create(
 
 @router.post("/token")
 async def authenticate(
-    form: Annotated[OAuth2PasswordRequestForm, Depends()],
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     service: Annotated[AdminService, Depends()],
 ) -> Token:
     if admin := await service.verify_authentication_request(
-        form.username, form.password
+        form_data.username, form_data.password
     ):
-        return Token(access_token=await service.create_access_token(admin))
+        return Token(
+            access_token=service.create_access_token(
+                TokenContent(id=str(admin.id), email_address=admin.email_address)
+            )
+        )
     else:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
