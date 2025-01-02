@@ -12,7 +12,7 @@ class Database:
     async def connect(self) -> None:
         """Initialize the database connection pool"""
         if self.pool is None:
-            self.pool = await asyncpg.create_pool(settings.DATABASE_URL)
+            self.pool = await asyncpg.create_pool(settings.DATABASE_URL.__str__())
 
     async def disconnect(self) -> None:
         """Close all database connections"""

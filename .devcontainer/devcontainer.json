@@ -35,5 +35,5 @@
     9000,
     9001
   ],
-  "postCreateCommand": "poetry install && poetry shell && pre-commit"
+  "postCreateCommand": "poetry install && poetry run pre-commit install"
 }

@@ -2,17 +2,18 @@ from datetime import datetime
 from uuid import uuid4
 
 from artist.models import ArtistRecord, ArtistWithCollectionsRecord
+from collection.models import CollectionRecord
 from database import database
 from pydantic import UUID4
-
-from app.collection.models import CollectionRecord
 
 
 class ArtistRepository:
     async def find(self) -> list[ArtistRecord]:
         async with database.connection() as connection:
-            [ArtistRecord.from_row(row) for row in await connection.fetchmany(
-                """"
+            return [
+                ArtistRecord.from_row(row)
+                for row in await connection.fetch(
+                    """
                 SELECT
                     id,
                     display_name,
@@ -21,7 +22,8 @@ class ArtistRepository:
                     updated_at
                 FROM artists
                 """
-            )]
+                )
+            ]
 
     async def find_by_id(self, id: UUID4) -> ArtistRecord | None:
         async with database.connection() as connection:
@@ -36,11 +38,13 @@ class ArtistRepository:
                 FROM artists
                 WHERE id = $1
                 """,
-                id
+                id,
             )
             return ArtistRecord.from_row(row) if row else None
 
-    async def find_by_id_with_collections(self, id: UUID4) -> ArtistWithCollectionsRecord | None:
+    async def find_by_id_with_collections(
+        self, id: UUID4
+    ) -> ArtistWithCollectionsRecord | None:
         artist: ArtistRecord | None = self.find_by_id(id)
 
         if not artist:
@@ -49,8 +53,10 @@ class ArtistRepository:
         async with database.connection() as connection:
             return ArtistWithCollectionsRecord(
                 artist,
-                [CollectionRecord.from_row(row) for row in await connection.fetchmany(
-                    """
+                [
+                    CollectionRecord.from_row(row)
+                    for row in await connection.fetchmany(
+                        """
                     SELECT
                         id,
                         display_name,
@@ -61,8 +67,9 @@ class ArtistRepository:
                     FROM collections
                     WHERE artist_id = $1
                     """,
-                    id
-                )]
+                        id,
+                    )
+                ],
             )
 
     async def create(self, display_name: str, slug: str) -> ArtistRecord:
@@ -77,7 +84,7 @@ class ArtistRepository:
                 display_name,
                 slug,
                 datetime.now(),
-                datetime.now()
+                datetime.now(),
             )
 
     async def delete(self, id: UUID4) -> bool:
@@ -87,6 +94,6 @@ class ArtistRepository:
                 DELETE * FROM artists
                 WHERE id = $1
                 """,
-                id
+                id,
             )
-            return result.split()[-1] != '0'
+            return result.split()[-1] != "0"
