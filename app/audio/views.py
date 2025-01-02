@@ -43,11 +43,11 @@ async def delete(
     return await repository.delete(id)
 
 
-@router.get("/pre-signed-url")
+@router.get("/pre-signed-url/{id}")
 async def find(
+    id: UUID4,
     service: Annotated[AudioService, Depends()],
 ) -> AudioPresignedUrlResponse:
-    id: UUID4 = uuid4()
     return AudioPresignedUrlResponse(
         id=id,
         url=service.find(str(id)),
