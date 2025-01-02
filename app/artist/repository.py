@@ -74,17 +74,19 @@ class ArtistRepository:
 
     async def create(self, display_name: str, slug: str) -> ArtistRecord:
         async with database.connection() as connection:
-            return await connection.fetchrow(
-                """
+            return ArtistRecord.from_row(
+                await connection.fetchrow(
+                    """
                 INSERT INTO artists (id, display_name, slug, created_at, updated_at)
                 VALUES ($1, $2, $3, $4, $5)
                 RETURNING *
                 """,
-                uuid4(),
-                display_name,
-                slug,
-                datetime.now(),
-                datetime.now(),
+                    uuid4(),
+                    display_name,
+                    slug,
+                    datetime.now(),
+                    datetime.now(),
+                )
             )
 
     async def delete(self, id: UUID4) -> bool:

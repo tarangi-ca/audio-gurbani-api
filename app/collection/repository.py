@@ -76,17 +76,19 @@ class CollectionRepository:
             raise ValueError("Artist does not exist")
 
         async with database.connection() as connection:
-            return await connection.fetchrow(
-                """
+            return CollectionRecord.from_row(
+                await connection.fetchrow(
+                    """
                 INSERT INTO collections (id, display_name, slug, artist_id, created_at, updated_at)
                 VALUES ($1, $2, $3, $4, $5, $5)
                 RETURNING *
                 """,
-                uuid4(),
-                display_name,
-                slug,
-                artist_id,
-                datetime.now(),
+                    uuid4(),
+                    display_name,
+                    slug,
+                    artist_id,
+                    datetime.now(),
+                )
             )
 
     async def delete(self, id: UUID4) -> bool:

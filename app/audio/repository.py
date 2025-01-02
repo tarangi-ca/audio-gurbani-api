@@ -71,16 +71,18 @@ class AudioRepository:
             raise ValueError("Collection does not exist")
 
         async with database.connection() as connection:
-            return await connection.fetchrow(
-                """
+            return AudioRecord.from_row(
+                await connection.fetchrow(
+                    """
                 INSERT INTO audios (id, display_name, collection_id, created_at, updated_at)
                 VALUES ($1, $2, $3, $4, $4)
                 RETURNING *
                 """,
-                uuid4(),
-                display_name,
-                collection_id,
-                datetime.now(),
+                    uuid4(),
+                    display_name,
+                    collection_id,
+                    datetime.now(),
+                )
             )
 
     async def delete(self, id: UUID4) -> bool:
