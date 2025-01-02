@@ -1,3 +1,4 @@
+import admin.views
 import artist.views
 import audio.views
 import collection.views
@@ -9,6 +10,7 @@ app: FastAPI = FastAPI()
 app.include_router(router=artist.views.router, prefix="/api/v1")
 app.include_router(router=collection.views.router, prefix="/api/v1")
 app.include_router(router=audio.views.router, prefix="/api/v1")
+app.include_router(router=admin.views.router, prefix="/api/v1")
 
 
 @app.on_event("startup")
