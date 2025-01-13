@@ -32,7 +32,7 @@ async def show(
 
 @router.post("/")
 async def create(
-    body: CreateAdminBody, repository: Annotated[AdminRepository, Depends()], token: str
+    body: CreateAdminBody, repository: Annotated[AdminRepository, Depends()]
 ) -> AdminRecord:
     if body.token == settings.ADMIN_MASTER_TOKEN:
         return await repository.create(body.email_address, body.password)
