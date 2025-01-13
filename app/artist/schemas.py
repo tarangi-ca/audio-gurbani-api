@@ -1,6 +1,6 @@
-from pydantic import BaseModel
+from utilities.schemas import CamelCaseBaseModel
 
 
-class CreateArtistBody(BaseModel):
+class CreateArtistBody(CamelCaseBaseModel):
     display_name: str
     slug: str

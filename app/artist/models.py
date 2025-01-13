@@ -1,14 +1,13 @@
-from dataclasses import dataclass
 from datetime import datetime
-from uuid import uuid4
 
 from asyncpg import Record
 from collection.models import CollectionRecord
+from pydantic import UUID4
+from utilities.schemas import CamelCaseBaseModel
 
 
-@dataclass
-class ArtistRecord:
-    id: uuid4
+class ArtistRecord(CamelCaseBaseModel):
+    id: UUID4
     display_name: str
     slug: str
     created_at: datetime
@@ -19,7 +18,6 @@ class ArtistRecord:
         return cls(**dict(row))
 
 
-@dataclass
-class ArtistWithCollectionsRecord:
+class ArtistWithCollectionsRecord(CamelCaseBaseModel):
     artist: ArtistRecord
     collections: list[CollectionRecord]

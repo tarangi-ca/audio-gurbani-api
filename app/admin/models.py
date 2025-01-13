@@ -1,13 +1,12 @@
-from dataclasses import dataclass
 from datetime import datetime
-from uuid import uuid4
 
 from asyncpg import Record
+from pydantic import UUID4
+from utilities.schemas import CamelCaseBaseModel
 
 
-@dataclass
-class AdminRecord:
-    id: uuid4
+class AdminRecord(CamelCaseBaseModel):
+    id: UUID4
     email_address: str
     password: str
     created_at: datetime

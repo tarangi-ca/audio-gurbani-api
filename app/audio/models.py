@@ -1,15 +1,14 @@
-from dataclasses import dataclass
 from datetime import datetime
-from uuid import uuid4
 
 from asyncpg import Record
+from pydantic import UUID4
+from utilities.schemas import CamelCaseBaseModel
 
 
-@dataclass
-class AudioRecord:
-    id: uuid4
+class AudioRecord(CamelCaseBaseModel):
+    id: UUID4
     display_name: str
-    collection_id: uuid4
+    collection_id: UUID4
     created_at: datetime
     updated_at: datetime
 

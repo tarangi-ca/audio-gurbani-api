@@ -1,11 +1,12 @@
-from pydantic import UUID4, BaseModel
+from pydantic import UUID4
+from utilities.schemas import CamelCaseBaseModel
 
 
-class CreateAudioRecord(BaseModel):
+class CreateAudioRecord(CamelCaseBaseModel):
     display_name: str
     collection_id: UUID4
 
 
-class AudioPresignedUrlResponse(BaseModel):
+class AudioPresignedUrlResponse(CamelCaseBaseModel):
     id: UUID4
     url: str
