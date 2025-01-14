@@ -90,7 +90,7 @@ class AudioRepository:
         async with database.connection() as connection:
             result: str = await connection.execute(
                 """
-                DELETE * FROM audios
+                DELETE FROM audios
                 WHERE id = $1
                 """,
                 id,

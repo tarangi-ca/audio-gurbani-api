@@ -93,7 +93,7 @@ class ArtistRepository:
         async with database.connection() as connection:
             result: str = await connection.execute(
                 """
-                DELETE * FROM artists
+                DELETE FROM artists
                 WHERE id = $1
                 """,
                 id,

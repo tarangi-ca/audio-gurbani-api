@@ -95,7 +95,7 @@ class CollectionRepository:
         async with database.connection() as connection:
             result: str = await connection.execute(
                 """
-                DELETE * FROM collections
+                DELETE FROM collections
                 WHERE id = $1
                 """,
                 id,

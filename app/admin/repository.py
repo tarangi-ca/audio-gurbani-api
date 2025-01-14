@@ -80,7 +80,7 @@ class AdminRepository:
         async with database.connection() as connection:
             result: str = await connection.execute(
                 """
-                DELETE * FROM administrators
+                DELETE FROM administrators
                 WHERE id = $1
                 """,
                 id,
