@@ -19,7 +19,7 @@ class AdminService:
 
     def verify_access_token(self, token: str) -> TokenContent | None:
         try:
-            return TokenContent.model_construct(
+            return TokenContent.model_validate(
                 jwt.decode(
                     token,
                     key=settings.JWT_SECRET_KEY,

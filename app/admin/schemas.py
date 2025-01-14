@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from utilities.schemas import CamelCaseBaseModel
 
 
@@ -7,10 +8,11 @@ class CreateAdminBody(CamelCaseBaseModel):
     token: str
 
 
-class Token(CamelCaseBaseModel):
+class Token(BaseModel):
     access_token: str
+    token_type: str
 
 
-class TokenContent(CamelCaseBaseModel):
+class TokenContent(BaseModel):
     id: str | None = None
     email_address: str | None = None

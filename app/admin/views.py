@@ -54,7 +54,8 @@ async def authenticate(
         return Token(
             access_token=service.create_access_token(
                 TokenContent(id=str(admin.id), email_address=admin.email_address)
-            )
+            ),
+            token_type="bearer",
         )
     else:
         raise HTTPException(
