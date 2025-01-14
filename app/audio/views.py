@@ -31,7 +31,7 @@ async def create(
     _: Annotated[AdminRecord, Depends(get_current_active_admin)],
     repository: Annotated[AudioRepository, Depends()],
 ) -> AudioRecord:
-    return await repository.create(body.display_name, body.collection_id)
+    return await repository.create(body.id, body.display_name, body.collection_id)
 
 
 @router.delete("/{id}")

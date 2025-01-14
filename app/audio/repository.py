@@ -1,5 +1,4 @@
 from datetime import datetime
-from uuid import uuid4
 
 from audio.models import AudioRecord
 from database import database
@@ -66,7 +65,9 @@ class AudioRepository:
                 )
             ]
 
-    async def create(self, display_name: str, collection_id: UUID4) -> AudioRecord:
+    async def create(
+        self, id: UUID4, display_name: str, collection_id: UUID4
+    ) -> AudioRecord:
         if not await self.does_collection_exist(collection_id):
             raise ValueError("Collection does not exist")
 
@@ -78,7 +79,7 @@ class AudioRepository:
                     VALUES ($1, $2, $3, $4, $4)
                     RETURNING *
                     """,
-                    uuid4(),
+                    id,
                     display_name,
                     collection_id,
                     datetime.now(),

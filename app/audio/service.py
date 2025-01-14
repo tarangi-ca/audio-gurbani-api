@@ -8,9 +8,10 @@ class AudioService:
             settings.MINIO_DOMAIN_NAME,
             settings.MINIO_ACCESS_KEY,
             settings.MINIO_SECRET_KEY,
+            secure=False,
         )
 
-        if self.minio.bucket_exists(settings.AUDIO_BUCKET_NAME):
+        if not self.minio.bucket_exists(settings.AUDIO_BUCKET_NAME):
             self.minio.make_bucket(settings.AUDIO_BUCKET_NAME)
 
     def find(self, name: str) -> str:

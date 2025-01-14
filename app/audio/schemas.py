@@ -3,6 +3,7 @@ from utilities.schemas import CamelCaseBaseModel
 
 
 class CreateAudioRecord(CamelCaseBaseModel):
+    id: UUID4
     display_name: str
     collection_id: UUID4
 
