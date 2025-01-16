@@ -1,5 +1,4 @@
 from datetime import datetime
-from uuid import uuid4
 
 from artist.models import ArtistRecord, ArtistWithCollectionsRecord
 from collection.models import CollectionRecord
@@ -72,7 +71,7 @@ class ArtistRepository:
                 ],
             )
 
-    async def create(self, display_name: str, slug: str) -> ArtistRecord:
+    async def create(self, id: UUID4, display_name: str, slug: str) -> ArtistRecord:
         async with database.connection() as connection:
             return ArtistRecord.from_row(
                 await connection.fetchrow(
@@ -81,7 +80,7 @@ class ArtistRepository:
                     VALUES ($1, $2, $3, $4, $5)
                     RETURNING *
                     """,
-                    uuid4(),
+                    id,
                     display_name,
                     slug,
                     datetime.now(),

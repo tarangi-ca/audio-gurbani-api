@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     )
     DATABASE_URL: PostgresDsn = Field()
 
-    AUDIO_BUCKET_NAME: str = Field()
+    APP_BUCKET_NAME: str = Field()
 
     MINIO_DOMAIN_NAME: str = Field()
     MINIO_ACCESS_KEY: str = Field()

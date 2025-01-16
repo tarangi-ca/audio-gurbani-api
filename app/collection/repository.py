@@ -1,5 +1,4 @@
 from datetime import datetime
-from uuid import uuid4
 
 from collection.models import CollectionRecord
 from database import database
@@ -70,7 +69,7 @@ class CollectionRepository:
             ]
 
     async def create(
-        self, display_name: str, slug: str, artist_id: UUID4
+        self, id: UUID4, display_name: str, slug: str, artist_id: UUID4
     ) -> CollectionRecord:
         if not await self.does_artist_exist(artist_id):
             raise ValueError("Artist does not exist")
@@ -83,7 +82,7 @@ class CollectionRepository:
                     VALUES ($1, $2, $3, $4, $5, $5)
                     RETURNING *
                     """,
-                    uuid4(),
+                    id,
                     display_name,
                     slug,
                     artist_id,
