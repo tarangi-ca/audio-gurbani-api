@@ -3,7 +3,7 @@ from admin.models import AdminRecord
 from admin.repository import AdminRepository
 from admin.schemas import TokenContent
 from passlib.hash import argon2
-from settings import settings
+from utilities.settings import settings
 
 
 class AdminService:

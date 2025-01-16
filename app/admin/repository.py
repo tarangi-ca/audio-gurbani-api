@@ -2,9 +2,9 @@ from datetime import datetime
 from uuid import uuid4
 
 from admin.models import AdminRecord
-from database import database
 from passlib.hash import argon2
 from pydantic import UUID4
+from utilities.database import database
 
 
 class AdminRepository:

@@ -1,8 +1,7 @@
 from enum import Enum
 
 from pydantic import UUID4
-
-from app.utilities.schemas import CamelCaseBaseModel
+from utilities.schemas import CamelCaseBaseModel
 
 
 class FilePresignedUrlResponse(CamelCaseBaseModel):

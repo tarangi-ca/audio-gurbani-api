@@ -2,8 +2,8 @@ from datetime import datetime
 
 from artist.models import ArtistRecord, ArtistWithCollectionsRecord
 from collection.models import CollectionRecord
-from database import database
 from pydantic import UUID4
+from utilities.database import database
 
 
 class ArtistRepository:

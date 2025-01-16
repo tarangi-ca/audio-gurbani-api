@@ -2,9 +2,9 @@ import admin.views
 import artist.views
 import audio.views
 import collection.views
-from database import database
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from utilities.database import database
 
 app: FastAPI = FastAPI()
 

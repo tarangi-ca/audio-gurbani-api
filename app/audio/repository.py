@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from audio.models import AudioRecord
-from database import database
 from pydantic import UUID4
+from utilities.database import database
 
 
 class AudioRepository:

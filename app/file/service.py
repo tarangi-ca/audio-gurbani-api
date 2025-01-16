@@ -1,6 +1,6 @@
 from file.schemas import FileFolder
 from minio import Minio
-from settings import settings
+from utilities.settings import settings
 
 
 class FileService:

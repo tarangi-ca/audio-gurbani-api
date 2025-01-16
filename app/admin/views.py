@@ -8,7 +8,7 @@ from admin.service import AdminService
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from pydantic import UUID4
-from settings import settings
+from utilities.settings import settings
 
 router: APIRouter = APIRouter(prefix="/admins")
 

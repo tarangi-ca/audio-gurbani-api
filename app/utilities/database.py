@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 import asyncpg
-from settings import settings
+from utilities.settings import settings
 
 
 class Database:
