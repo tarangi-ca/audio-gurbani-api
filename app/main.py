@@ -2,6 +2,7 @@ import admin.views
 import artist.views
 import audio.views
 import collection.views
+import file.views
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from utilities.database import database
@@ -21,6 +22,7 @@ app.include_router(router=artist.views.router, prefix="/api/v1")
 app.include_router(router=collection.views.router, prefix="/api/v1")
 app.include_router(router=audio.views.router, prefix="/api/v1")
 app.include_router(router=admin.views.router, prefix="/api/v1")
+app.include_router(router=file.views.router, prefix="/api/v1")
 
 
 @app.on_event("startup")
