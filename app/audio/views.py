@@ -1,12 +1,10 @@
 from typing import Annotated
-from uuid import uuid4
 
 from admin.dependencies import get_current_active_admin
 from admin.models import AdminRecord
 from audio.models import AudioRecord
 from audio.repository import AudioRepository
-from audio.schemas import AudioPresignedUrlResponse, CreateAudioRecord
-from audio.service import AudioService
+from audio.schemas import CreateAudioRecord
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
@@ -41,26 +39,3 @@ async def delete(
     repository: Annotated[AudioRepository, Depends()],
 ) -> bool:
     return await repository.delete(id)
-
-
-@router.get("/pre-signed-url/{id}")
-async def find(
-    id: UUID4,
-    service: Annotated[AudioService, Depends()],
-) -> AudioPresignedUrlResponse:
-    return AudioPresignedUrlResponse(
-        id=id,
-        url=service.find(str(id)),
-    )
-
-
-@router.post("/pre-signed-url")
-async def upload(
-    _: Annotated[AdminRecord, Depends(get_current_active_admin)],
-    service: Annotated[AudioService, Depends()],
-) -> AudioPresignedUrlResponse:
-    id: UUID4 = uuid4()
-    return AudioPresignedUrlResponse(
-        id=id,
-        url=service.insert(str(id)),
-    )
