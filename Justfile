@@ -1,6 +1,4 @@
 set dotenv-load := true
-set working-directory := '/workspaces/api'
-export RUST_BACKTRACE := "/workspaces/api"
 
 alias d := dev
 alias m := migrate

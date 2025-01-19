@@ -6,3 +6,4 @@ class CreateArtistBody(CamelCaseBaseModel):
     id: UUID4
     display_name: str
     slug: str
+    description: str | None

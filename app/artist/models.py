@@ -10,6 +10,7 @@ class ArtistRecord(CamelCaseBaseModel):
     id: UUID4
     display_name: str
     slug: str
+    description: str | None
     created_at: datetime
     updated_at: datetime
 

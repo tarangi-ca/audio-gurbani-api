@@ -17,6 +17,7 @@ class ArtistRepository:
                         id,
                         display_name,
                         slug,
+                        description,
                         created_at,
                         updated_at
                     FROM artists
@@ -32,6 +33,7 @@ class ArtistRepository:
                     id,
                     display_name,
                     slug,
+                    description,
                     created_at,
                     updated_at
                 FROM artists
@@ -71,18 +73,21 @@ class ArtistRepository:
                 ],
             )
 
-    async def create(self, id: UUID4, display_name: str, slug: str) -> ArtistRecord:
+    async def create(
+        self, id: UUID4, display_name: str, slug: str, description: str | None
+    ) -> ArtistRecord:
         async with database.connection() as connection:
             return ArtistRecord.from_row(
                 await connection.fetchrow(
                     """
-                    INSERT INTO artists (id, display_name, slug, created_at, updated_at)
+                    INSERT INTO artists (id, display_name, slug, description, created_at, updated_at)
                     VALUES ($1, $2, $3, $4, $5)
                     RETURNING *
                     """,
                     id,
                     display_name,
                     slug,
+                    description,
                     datetime.now(),
                     datetime.now(),
                 )
