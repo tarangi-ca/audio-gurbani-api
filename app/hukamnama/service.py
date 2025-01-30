@@ -12,11 +12,10 @@ from hukamnama.exceptions import (
 from hukamnama.models import HukamnamaRecord
 from hukamnama.repository import HukamnamaRepository
 from hukamnama.schemas import MehlMapping
+from utilities.settings import settings
 
 
 class HukamnamaScraper:
-    HUKAMNAMA_URL = "https://hs.sgpc.net/index.php"
-
     def __init__(self, repository: Annotated[HukamnamaRepository, Depends()]):
         self.repository = repository
 
@@ -24,14 +23,14 @@ class HukamnamaScraper:
         try:
             async with httpx.AsyncClient() as client:
                 response: httpx.Response = await client.get(
-                    self.HUKAMNAMA_URL, timeout=30.0
+                    settings.HUKAMNAMA_URL, timeout=30.0
                 )
                 response.raise_for_status()
                 return response.text
         except (httpx.RequestError, httpx.HTTPStatusError):
             raise PageFetchException(
                 f"Failed to fetch the page at {
-                self.HUKAMNAMA_URL}"
+                    settings.HUKAMNAMA_URL}"
             )
 
     def parse(self, html: str):

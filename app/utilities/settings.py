@@ -22,5 +22,7 @@ class Settings(BaseSettings):
 
     ADMIN_MASTER_TOKEN: str = Field()
 
+    HUKAMNAMA_URL: str = Field()
+
 
 settings: Settings = Settings()
