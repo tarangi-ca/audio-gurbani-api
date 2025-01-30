@@ -50,7 +50,7 @@ class AudioRepository:
         async with database.connection() as connection:
             return [
                 AudioRecord.from_row(row)
-                for row in await connection.fetchmany(
+                for row in await connection.fetch(
                     """
                     SELECT
                         id,

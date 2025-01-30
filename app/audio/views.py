@@ -23,6 +23,13 @@ async def show(
     return await repository.find_by_id(id)
 
 
+@router.get("/by-collection/{id}")
+async def show_by_collection_id(
+    id: UUID4, repository: Annotated[AudioRepository, Depends()]
+) -> list[AudioRecord]:
+    return await repository.find_by_collection_id(id)
+
+
 @router.post("/")
 async def create(
     body: CreateAudioRecord,
